@@ -6,6 +6,7 @@ import firebaseConfig from './config';
 
 if (!app.apps.length) {
   app.initializeApp(firebaseConfig);
+  app.firestore().settings({experimentalForceLongPolling: true}); //to force in android platform
 }
 
 export const firebaseApp = app;
