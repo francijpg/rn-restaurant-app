@@ -36,8 +36,6 @@ const StorageProvider = ({children}) => {
         };
       });
 
-      // console.log(dishes);
-
       dispatch({
         type: GET_PRODUCTS_SUCCESSFULLY,
         payload: dishes,
@@ -49,12 +47,17 @@ const StorageProvider = ({children}) => {
     dispatch({type: GET_ONE_PRODUCT, payload: dish});
   };
 
+  const setOrder = order => {
+    console.log(order);
+  };
+
   const value = {
     menu: state.menu,
     order: state.order,
     dish: state.dish,
     getProducts,
     getOneProduct,
+    setOrder,
   };
 
   return (
