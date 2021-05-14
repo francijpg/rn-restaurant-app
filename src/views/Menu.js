@@ -15,13 +15,13 @@ import {StyleSheet} from 'react-native';
 import {useStorage} from '../contexts/storage/storageContext';
 
 const Menu = () => {
-  const {menu, getProducts, getOneProduct} = useStorage();
+  const {menu, fetchDishes, getDish} = useStorage();
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    getProducts();
-  }, [getProducts]);
+    fetchDishes();
+  }, [fetchDishes]);
 
   const showHeading = (category, i) => {
     if (i > 0) {
@@ -54,7 +54,7 @@ const Menu = () => {
                 <ListItem
                   onPress={() => {
                     const {stock, ...newDish} = dish;
-                    getOneProduct(newDish);
+                    getDish(newDish);
                     navigation.navigate('DishDetail');
                   }}>
                   <Thumbnail large square source={{uri: imageRef}} />
