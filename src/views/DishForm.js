@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Alert, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   Container,
   Content,
@@ -20,7 +20,7 @@ import {useStorage} from '../contexts/storage/storageContext';
 const DishForm = () => {
   const [quantity, setQuantity] = useState(1);
   const [total, setTotal] = useState(0);
-  const {dish, setOrder} = useStorage();
+  const {dish, setSelectedOrder} = useStorage();
   const {price} = dish;
 
   const navigation = useNavigation();
@@ -54,7 +54,7 @@ const DishForm = () => {
       total,
     };
 
-    setOrder(order);
+    setSelectedOrder(order);
     navigation.navigate('OrderSummary');
     // Alert.alert(
     //   'Do you want to confirm your order?',
@@ -69,7 +69,7 @@ const DishForm = () => {
     //           total,
     //         };
 
-    //         setOrder(order);
+    //         setSelectedOrder(order);
     //         navigation.navigate('OrderSummary');
     //       },
     //     },
@@ -122,7 +122,7 @@ const DishForm = () => {
       <Footer>
         <FooterTab>
           <Button style={globalStyles.button} onPress={() => confirmOrder()}>
-            <Text style={globalStyles.buttonText}>Add to Order</Text>
+            <Text style={globalStyles.buttonText}>add to order</Text>
           </Button>
         </FooterTab>
       </Footer>
