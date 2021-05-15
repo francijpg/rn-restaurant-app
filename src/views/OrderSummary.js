@@ -17,9 +17,17 @@ import {
 import {useStorage} from '../contexts/storage/storageContext';
 import globalStyles from '../styles/global';
 import {useNavigation} from '@react-navigation/native';
+import * as MESSAGES from '../constants/providers';
 
 const OrderSummary = () => {
-  const {order, totalToPay, getOrderSummary, removeOrderDish} = useStorage();
+  const {
+    order,
+    totalToPay,
+    getOrderSummary,
+    removeOrderDish,
+    setAddOrder,
+    setOrderDispatched,
+  } = useStorage();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -61,26 +69,21 @@ const OrderSummary = () => {
         {
           text: 'Confirm',
           onPress: async () => {
-            console.log('order in progress');
-            // crear un objeto
-            // const pedidoObj = {
-            //   tiempoentrega: 0,
-            //   completado: false,
-            //   total: Number(total),
-            //   orden: pedido, // array
-            //   creado: Date.now(),
-            // };
-            // console.log(pedidoObj);
-            // try {
-            //   const pedido = await firebase.db
-            //     .collection('ordenes')
-            //     .add(pedidoObj);
-            //   pedidoRealizado(pedido.id);
-            //   // redireccionar a progreso
-            //   navigation.navigate('ProgresoPedido');
-            // } catch (error) {
-            //   console.log(error);
-            // }
+            const orderObject = {
+              deliveryTime: 0,
+              completed: false,
+              total: totalToPay,
+              order: order,
+              creationDate: Date.now(),
+            };
+            try {
+              const orderId = await setAddOrder(orderObject);
+              setOrderDispatched(orderId);
+
+              navigation.navigate('OrderProgress');
+            } catch (e) {
+              console.error(MESSAGES.SERVER_ERROR_MESSAGE);
+            }
           },
         },
         {text: 'Check', style: 'cancel'},
@@ -92,6 +95,7 @@ const OrderSummary = () => {
     <Container style={globalStyles.container}>
       <Content style={globalStyles.content}>
         <H1 style={globalStyles.title}>Order Summary</H1>
+
         {order.map((dish, i) => {
           const {amount, name, imageRef, id, price} = dish;
           return (
