@@ -5,9 +5,11 @@ import services from '../../services';
 import {
   FETCH_DISHES_SUCCESSFULLY,
   GET_DISH,
-  CONFIRM_ORDER_DISHES,
+  SELECTED_ORDER,
   GET_ORDER_SUMMARY,
   REMOVE_ORDER_DISH,
+  CONFIRM_ORDER,
+  ORDER_DISPATCHED,
 } from '../../constants/actionTypes';
 
 export const StorageContext = createContext();
@@ -51,12 +53,20 @@ const StorageProvider = ({children}) => {
     dispatch({type: GET_DISH, payload: dish});
   };
 
-  const setOrder = order => {
-    // console.log(order);
+  const setSelectedOrder = order => {
     dispatch({
-      type: CONFIRM_ORDER_DISHES,
+      type: SELECTED_ORDER,
       payload: order,
     });
+  };
+
+  const setAddOrder = async order => {
+    const {id} = await database.orders.add(order);
+    dispatch({
+      type: CONFIRM_ORDER,
+      payload: order,
+    });
+    return id;
   };
 
   const getOrderSummary = totalToPay => {
@@ -73,6 +83,13 @@ const StorageProvider = ({children}) => {
     });
   };
 
+  const setOrderDispatched = id => {
+    dispatch({
+      type: ORDER_DISPATCHED,
+      payload: id,
+    });
+  };
+
   const value = {
     menu: state.menu,
     order: state.order,
@@ -80,9 +97,11 @@ const StorageProvider = ({children}) => {
     totalToPay: state.totalToPay,
     fetchDishes,
     getDish,
-    setOrder,
+    setSelectedOrder,
     removeOrderDish,
     getOrderSummary,
+    setAddOrder,
+    setOrderDispatched,
   };
 
   return (
