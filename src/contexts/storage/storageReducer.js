@@ -1,9 +1,11 @@
 import {
   FETCH_DISHES_SUCCESSFULLY,
   GET_DISH,
-  CONFIRM_ORDER_DISHES,
+  SELECTED_ORDER,
   GET_ORDER_SUMMARY,
   REMOVE_ORDER_DISH,
+  CONFIRM_ORDER,
+  ORDER_DISPATCHED,
 } from '../../constants/actionTypes';
 
 export default (state, action) => {
@@ -18,7 +20,8 @@ export default (state, action) => {
         ...state,
         dish: action.payload,
       };
-    case CONFIRM_ORDER_DISHES:
+    case SELECTED_ORDER:
+    case CONFIRM_ORDER:
       return {
         ...state,
         order: [...state.order, action.payload],
@@ -32,6 +35,13 @@ export default (state, action) => {
       return {
         ...state,
         order: state.order.filter(dish => dish.id !== action.payload),
+      };
+    case ORDER_DISPATCHED:
+      return {
+        ...state,
+        order: [],
+        totalToPay: 0,
+        orderId: action.payload,
       };
     default:
       return state;
