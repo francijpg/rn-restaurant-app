@@ -25,6 +25,7 @@ const StorageProvider = ({children}) => {
     order: [],
     dish: null,
     totalToPay: 0,
+    orderId: '',
   };
 
   const [state, dispatch] = useReducer(StorageReducer, initialState);
@@ -47,6 +48,12 @@ const StorageProvider = ({children}) => {
         payload: dishes,
       });
     }
+  };
+
+  const fetchOrders = orderId => {
+    console.log(orderId);
+    const ordersRef = database.orders.doc(orderId);
+    return ordersRef;
   };
 
   const getDish = dish => {
@@ -95,7 +102,9 @@ const StorageProvider = ({children}) => {
     order: state.order,
     dish: state.dish,
     totalToPay: state.totalToPay,
+    orderId: state.orderId,
     fetchDishes,
+    fetchOrders,
     getDish,
     setSelectedOrder,
     removeOrderDish,
