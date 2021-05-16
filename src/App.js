@@ -12,6 +12,7 @@ import DishDetail from './views/DishDetail';
 import DishForm from './views/DishForm';
 
 import StorageContext from './contexts/storage/storageContext';
+import SummaryButton from './components/orders/molecules/SummaryButton';
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,7 @@ const App = () => {
               component={Menu}
               options={{
                 title: 'Our Menu',
+                headerRight: props => <SummaryButton />,
               }}
             />
             <Stack.Screen
