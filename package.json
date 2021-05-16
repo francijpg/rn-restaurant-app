@@ -16,6 +16,7 @@
     "firebase": "^8.4.2",
     "native-base": "^2.15.2",
     "react": "17.0.1",
+    "react-countdown": "^2.3.2",
     "react-native": "0.64.0",
     "react-native-dotenv": "^2.5.5",
     "react-native-gesture-handler": "^1.10.3",
