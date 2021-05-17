@@ -1,24 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/core';
 import {Button, Container, H1, H3, Text} from 'native-base';
 import {StyleSheet, View} from 'react-native';
 import globalStyles from '../styles/global';
-import Countdown from 'react-countdown';
-import useOrders from '../hooks/useOrders';
+import {useStorage} from '../contexts/storage/storageContext';
+import CountDown from 'react-native-countdown-component';
 
 const OrderProgress = () => {
-  const navigation = useNavigation();
-  // const [time, setTime] = useState(0);
-  // const [orderCompleted, setOrderCompleted] = useState(false);
-  const {time, orderCompleted} = useOrders();
+  const {orderId, fetchOrders} = useStorage();
+  const [time, setTime] = useState(0);
+  const [orderCompleted, setOrderCompleted] = useState(false);
 
-  const renderer = ({minutes, seconds}) => {
-    return (
-      <Text style={styles.time}>
-        {minutes}:{seconds}{' '}
-      </Text>
-    );
-  };
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    const getOrdersRef = () => {
+      const orderRef = fetchOrders(orderId);
+      orderRef.onSnapshot(function (doc) {
+        setTime(doc.data().deliveryTime);
+        setOrderCompleted(doc.data().completed);
+      });
+    };
+    getOrdersRef();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container style={globalStyles.container}>
@@ -36,7 +41,15 @@ const OrderProgress = () => {
           <>
             <Text style={styles.text}>Your order will be ready in: </Text>
             <Text style={styles.text}>
-              <Countdown date={Date.now() + time * 60000} renderer={renderer} />
+              <CountDown
+                until={60 * time}
+                size={50}
+                digitTxtStyle={styles.timerColor}
+                digitStyle={styles.timerBgColor}
+                timeToShow={['M', 'S']}
+                // eslint-disable-next-line no-alert
+                // onFinish={() => alert('Finished')}
+              />
             </Text>
           </>
         )}
@@ -69,11 +82,11 @@ const styles = StyleSheet.create({
   separator: {
     marginTop: 80,
   },
-  time: {
-    marginBottom: 20,
-    fontSize: 60,
-    textAlign: 'center',
-    marginTop: 80,
+  timerColor: {
+    color: '#FFDA00',
+  },
+  timerBgColor: {
+    color: '#FFDA00',
   },
   completedText: {
     textAlign: 'center',
