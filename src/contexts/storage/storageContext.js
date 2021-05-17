@@ -51,7 +51,6 @@ const StorageProvider = ({children}) => {
   };
 
   const fetchOrders = orderId => {
-    console.log(orderId);
     const ordersRef = database.orders.doc(orderId);
     return ordersRef;
   };
