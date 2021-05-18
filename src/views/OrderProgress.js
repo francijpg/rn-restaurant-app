@@ -4,7 +4,7 @@ import {Button, Container, H1, H3, Text} from 'native-base';
 import {StyleSheet, View} from 'react-native';
 import globalStyles from '../styles/global';
 import {useStorage} from '../contexts/storage/storageContext';
-import CountDown from 'react-native-countdown-component';
+import CountDown from '../components/orders/atoms/CountDown';
 
 const OrderProgress = () => {
   const {orderId, fetchOrders} = useStorage();
@@ -41,15 +41,7 @@ const OrderProgress = () => {
           <>
             <Text style={styles.text}>Your order will be ready in: </Text>
             <Text style={styles.text}>
-              <CountDown
-                until={60 * time}
-                size={50}
-                digitTxtStyle={styles.timerColor}
-                digitStyle={styles.timerBgColor}
-                timeToShow={['M', 'S']}
-                // eslint-disable-next-line no-alert
-                // onFinish={() => alert('Finished')}
-              />
+              <CountDown time={time} />
             </Text>
           </>
         )}
@@ -81,12 +73,6 @@ const styles = StyleSheet.create({
   },
   separator: {
     marginTop: 80,
-  },
-  timerColor: {
-    color: '#FFDA00',
-  },
-  timerBgColor: {
-    color: '#FFDA00',
   },
   completedText: {
     textAlign: 'center',
