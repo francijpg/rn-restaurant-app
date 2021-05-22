@@ -2,11 +2,11 @@
 In this mobile application developed with React Native, we can order different types and quantities of dishes from a restaurant, and we are notified when the order is ready to receive it.
 
 ## Demo
-- ![DEMO](https://github.com/francijpg/rn-restaurant-app/blob/main/assets/animations/app-demo.gif)
+- ![DEMO](https://github.com/francijpg/rn-restaurant-app/blob/main/src/assets/animations/app-demo.gif)
 
-![DEMO](https://github.com/francijpg/rn-restaurant-app/blob/main/assets/images/demo-1.jpg)
-![DEMO](https://github.com/francijpg/rn-restaurant-app/blob/main/assets/images/demo-2.jpg)
-![DEMO](https://github.com/francijpg/rn-restaurant-app/blob/main/assets/images/demo-3.jpg)
+![DEMO](https://github.com/francijpg/rn-restaurant-app/blob/main/src/assets/images/demo-1.jpg)
+![DEMO](https://github.com/francijpg/rn-restaurant-app/blob/main/src/assets/images/demo-2.jpg)
+![DEMO](https://github.com/francijpg/rn-restaurant-app/blob/main/src/assets/images/demo-3.jpg)
 
 ## Features
 
