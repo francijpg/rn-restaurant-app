@@ -1,6 +1,8 @@
 # Restaurant Application
 In this mobile application developed with React Native, we can order different types and quantities of dishes from a restaurant, and we are notified when the order is ready to receive it.
 
+[Here](https://github.com/francijpg/restaurant-client) you can check the web application to manage the orders and dishes.
+
 ## Demo
 ![DEMO](https://github.com/francijpg/rn-restaurant-app/blob/main/src/assets/animations/app-demo.gif)
 
@@ -9,6 +11,7 @@ In this mobile application developed with React Native, we can order different t
 
 - Built with React 17
 - Using React Navigation
+- State management with Context
 - Environment Variables handling
 - Stylized with [NativeBase](https://nativebase.io/)
 - Powered by [Firebase](https://firebase.google.com/)
